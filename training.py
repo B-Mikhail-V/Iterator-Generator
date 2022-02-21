@@ -64,9 +64,60 @@
 # for url in MyLinks("https://pythondigest.ru"):
 #     print(url)
 
-def my_range(start, end, step):
-    while start < end:
-        yield start
-        start += step
 
-print(list(my_range(1, 4, 0.5)))
+#
+# def my_range(start, end, step):
+#     while start < end:
+#         yield start
+#         start += step
+#
+# print(list(my_range(1, 4, 0.5)))
+
+nested_list = [
+	['a', 'b', 'c', [1, 2, [33, 44, 55]]],
+	['d', 'e', 'f', 'h', False],
+	[1, 2, None],
+]
+
+class FlatIterator():
+
+    def __init__(self, llist):
+        self.llist = llist
+
+
+    def __iter__(self):
+        self.cursor = -1
+        return self
+
+    def __next__(self):
+        self.cursor += 1
+        if self.cursor == len(self.llist):
+            raise StopIteration
+        return self.llist[self.cursor]
+
+# def print_items(list_1):
+#     if isinstance(list_1, list):
+#         FlatIterator(list_1)
+#     else:
+#         print_items(list_1)
+#
+#
+# def pp(list_2):
+#     for item in FlatIterator(list_2):
+#         for el in FlatIterator(item):
+#             print_items(el)
+def make_el(list_2):
+    for item1 in FlatIterator(list_2):
+        # for el2 in FlatIterator(item1):
+        if isinstance(item1, list):
+            return make_el(item1)
+        else:
+            print(item1)
+
+# def mmm(list_1):
+#     if isinstance(make_el(list_1), list):
+#         return make_el(list_1)
+#     else:
+#         print(make_el(list_1))
+
+make_el(nested_list)

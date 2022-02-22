@@ -74,9 +74,9 @@
 # print(list(my_range(1, 4, 0.5)))
 
 nested_list = [
-	['a', 'b', 'c', [1, 2, [33, 44, 55]]],
-	['d', 'e', 'f', 'h', False],
-	[1, 2, None],
+	['a', 'b', 'c', [1, 2, [33, 44, 55, ['r', 4, 'zz']]]],
+	['d', 'e', [121, 232, 343, 'ttt'], 'f', 'h', False],
+	[1, 2, None, [111, 444, 'sss']],
 ]
 
 class FlatIterator():
@@ -108,11 +108,26 @@ class FlatIterator():
 #             print_items(el)
 def make_el(list_2):
     for item1 in FlatIterator(list_2):
-        # for el2 in FlatIterator(item1):
         if isinstance(item1, list):
-            return make_el(item1)
+            for el2 in FlatIterator(item1):
+                if isinstance(el2, list):
+                    return make_el(el2)
+                else:
+                    print(el2)
+        print(item1)
+    # print(list_2)
+
+def print_fin(list_3):
+    for items in FlatIterator(list_3):
+        # print(items)
+        if isinstance(items, list):
+            for el2 in FlatIterator(items):
+                if isinstance(el2, list):
+                    print_fin(el2)
+                else:
+                    print(el2)
         else:
-            print(item1)
+            print(items)
 
 # def mmm(list_1):
 #     if isinstance(make_el(list_1), list):
@@ -120,4 +135,4 @@ def make_el(list_2):
 #     else:
 #         print(make_el(list_1))
 
-make_el(nested_list)
+print_fin(nested_list)

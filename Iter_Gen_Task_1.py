@@ -27,7 +27,7 @@ class FlatIterator():
 def print_el2(list_2):
     for item in FlatIterator(list_2):
         if isinstance(item, list):
-            print_el(item)
+            print_el2(item)
         else:
             print(item)
 
@@ -42,7 +42,7 @@ def print_el(list_2):
 
 
 if __name__ == '__main__':
-    print(FlatIterator(nested_list))
+    print(print_el2(nested_list))
 
 
     # print(FlatIterator(nested_list))
